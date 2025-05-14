@@ -1,0 +1,17 @@
+api-query/
+evobench/
+WisePulse/
+
+merger_tmp/
+sorted_chunks/
+
+logs/
+
+output/
+sorted_output/
+
+input_file.ndjson.zst
+sorted_input_file.ndjson.zst
+
+.silo.pid
+.silo.stopped

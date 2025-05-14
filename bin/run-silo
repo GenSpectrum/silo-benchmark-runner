@@ -1,0 +1,15 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=' '
+
+trap 'rm .silo.pid' EXIT
+
+# Bash requires { } around the ( ) for `time` to output anything.
+time {
+    (
+        # Can't use "$$" as that doesn't actually print the current pid
+        # for subshells, must use "$BASHPID"!
+        echo "$BASHPID" > .silo.pid
+        exec "$SILO" api --data-directory "$OUTPUT_DIR" $API_OPTIONS
+    )
+}

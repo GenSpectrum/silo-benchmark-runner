@@ -1,0 +1,21 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+# Start and wait until up
+
+bin/run-silo > "$RESULT_BASENAME"-silo.log &
+
+echo -n "Waiting for pid file..."
+until [ -e .silo.pid ]; do
+    sleep 0.1
+done
+echo done.
+
+pid=$(cat .silo.pid)
+
+echo -n "Waiting for silo (PID $pid) to be ready..."
+until curl -s -o /dev/null -w "%{http_code}" http://localhost:8081/info | grep -q "200"; do 
+    sleep 0.5
+done
+echo done.

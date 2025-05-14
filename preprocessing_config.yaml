@@ -1,0 +1,3 @@
+lineageDefinitionsFilename: "open_lineage_definitions.yaml"
+referenceGenomeFilename: "reference_genomes.json"
+databaseConfig: "database_config_open.yaml"

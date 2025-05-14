@@ -1,0 +1,150 @@
+schema:
+  instanceName: sars_cov-2_nextstrain_open
+  opennessLevel: OPEN
+  metadata:
+    - name: ace2Binding
+      type: float
+    - name: age
+      type: int
+    - name: authors
+      type: string
+      lapisAllowsRegexSearch: true
+    - name: country
+      type: string
+      generateIndex: true
+      lapisAllowsRegexSearch: true
+    - name: countryExposure
+      type: string
+      generateIndex: true
+      lapisAllowsRegexSearch: true
+    - name: database
+      type: string
+      generateIndex: true
+      lapisAllowsRegexSearch: true
+    - name: date
+      type: date
+    - name: dateDay
+      type: int
+    - name: dateMonth
+      type: int
+    - name: dateOriginalValue
+      type: string
+      lapisAllowsRegexSearch: true
+    - name: dateSubmitted
+      type: date
+    - name: dateSubmittedDay
+      type: int
+    - name: dateSubmittedMonth
+      type: int
+    - name: dateSubmittedOriginalValue
+      type: string
+      lapisAllowsRegexSearch: true
+    - name: dateSubmittedYear
+      type: int
+    - name: dateUpdated
+      type: date
+    - name: dateUpdatedDay
+      type: int
+    - name: dateUpdatedMonth
+      type: int
+    - name: dateUpdatedOriginalValue
+      type: string
+      lapisAllowsRegexSearch: true
+    - name: dateUpdatedYear
+      type: int
+    - name: dateYear
+      type: int
+    - name: division
+      type: string
+      generateIndex: true
+      lapisAllowsRegexSearch: true
+    - name: divisionExposure
+      type: string
+      generateIndex: true
+      lapisAllowsRegexSearch: true
+    - name: genbankAccession
+      type: string
+    - name: genbankAccessionRev
+      type: string
+    - name: gisaidClade
+      type: string
+      generateIndex: true
+      lapisAllowsRegexSearch: true
+    - name: gisaidEpiIsl
+      type: string
+    - name: host
+      type: string
+      generateIndex: true
+      lapisAllowsRegexSearch: true
+    - name: immuneEscape
+      type: float
+    - name: location
+      type: string
+      lapisAllowsRegexSearch: true
+    - name: nextcladeCoverage
+      type: float
+    - name: nextcladePangoLineage
+      type: string
+      generateIndex: true
+      generateLineageIndex: true
+    - name: nextcladeQcFrameShiftsScore
+      type: float
+    - name: nextcladeQcMissingDataScore
+      type: float
+    - name: nextcladeQcMixedSitesScore
+      type: float
+    - name: nextcladeQcOverallScore
+      type: float
+    - name: nextcladeQcPrivateMutationsScore
+      type: float
+    - name: nextcladeQcSnpClustersScore
+      type: float
+    - name: nextcladeQcStopCodonsScore
+      type: float
+    - name: nextstrainClade
+      type: string
+      generateIndex: true
+    - name: originatingLab
+      type: string
+      lapisAllowsRegexSearch: true
+    - name: pangoLineage
+      type: string
+      generateIndex: true
+      generateLineageIndex: true
+    - name: region
+      type: string
+      generateIndex: true
+      lapisAllowsRegexSearch: true
+    - name: regionExposure
+      type: string
+      generateIndex: true
+      lapisAllowsRegexSearch: true
+    - name: samplingStrategy
+      type: string
+      generateIndex: true
+    - name: sex
+      type: string
+      generateIndex: true
+    - name: sraAccession
+      type: string
+    - name: strain
+      type: string
+    - name: submittingLab
+      type: string
+    - name: whoClade
+      type: string
+      generateIndex: true
+    - name: died
+      type: boolean
+    - name: fullyVaccinated
+      type: boolean
+    - name: hospitalized
+      type: boolean
+    - name: nextcladeDatasetVersion
+      type: string
+  features:
+    - name: sarsCoV2VariantQuery
+  primaryKey: strain
+  dateToSortBy: date
+# See https://github.com/GenSpectrum/servers/pull/174 - disable partitioning for now
+#  partitionBy: pangoLineage
