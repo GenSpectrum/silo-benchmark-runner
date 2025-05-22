@@ -2,6 +2,6 @@
 set -meuo pipefail
 IFS=
 
-"$EVOBENCH_EVALUATOR" read "$EVOBENCH_LOG" --show-thread-number "$RESULT_BASENAME".tsv
+"$EVOBENCH_EVALUATOR" read "$EVOBENCH_LOG" --show-thread-number --excel "$RESULT_BASENAME".xlsx
 zstd < "$EVOBENCH_LOG" > "$RESULT_BASENAME"-bench.log.zstd
 rm -f "$EVOBENCH_LOG"

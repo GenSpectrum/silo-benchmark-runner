@@ -61,7 +61,7 @@ export EVOBENCH_EVALUATOR
 
 $(EVOBENCH_CHECKOUT):
 	git clone https://github.com/GenSpectrum/evobench/ $(EVOBENCH_DIR)
-	cd $(EVOBENCH_DIR) && git checkout -b local fa2efbd6b3038f3589163992b928ff6e0b898412
+	cd $(EVOBENCH_DIR) && git checkout -b local 1629ed73c0c65ba19a8de97aa71236e0dbc87887
 
 $(EVOBENCH_EVALUATOR): $(EVOBENCH_CHECKOUT)
 	cd $(EVOBENCH_EVALUATOR_DIR) && cargo build --release
