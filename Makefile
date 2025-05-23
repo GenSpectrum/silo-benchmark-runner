@@ -44,7 +44,7 @@ API_QUERY_VERSION=f1d7ff35b03ac740a58186578bf38e8cc39acc67
 
 API_QUERY_DIR=api-query
 API_QUERY_CLONE=$(API_QUERY_DIR)/Cargo.toml
-API_QUERY_CHECKOUT_STAMP_DIR=$(API_QUERY_DIR).checkout
+API_QUERY_CHECKOUT_STAMP_DIR=$(API_QUERY_DIR)/.git/.checkout
 API_QUERY_CHECKOUT=$(API_QUERY_CHECKOUT_STAMP_DIR)/$(API_QUERY_VERSION)
 API_QUERY=$(API_QUERY_DIR)/target/release/api-query
 
@@ -53,7 +53,7 @@ $(API_QUERY_CLONE):
 
 $(API_QUERY_CHECKOUT): $(API_QUERY_CLONE)
 	rm -rf $(API_QUERY_CHECKOUT_STAMP_DIR) # remove previous version stamp
-	( cd $(API_QUERY_DIR) && git remote update && git checkout -b local_$(API_QUERY_VERSION) $(API_QUERY_VERSION) )
+	( cd $(API_QUERY_DIR) && git remote update && git checkout -b local_hidden_$(API_QUERY_VERSION) $(API_QUERY_VERSION) )
 	mkdir -p $(API_QUERY_CHECKOUT_STAMP_DIR)
 	touch $(API_QUERY_CHECKOUT)
 
@@ -65,7 +65,7 @@ EVOBENCH_VERSION=0c3d3d60bca0b0dfdffbc42ba602cd921af0a0df
 
 EVOBENCH_DIR=evobench
 EVOBENCH_CLONE=$(EVOBENCH_DIR)/evobench-evaluator/Cargo.toml
-EVOBENCH_CHECKOUT_STAMP_DIR=$(EVOBENCH_DIR).checkout
+EVOBENCH_CHECKOUT_STAMP_DIR=$(EVOBENCH_DIR)/.git/.checkout
 EVOBENCH_CHECKOUT=$(EVOBENCH_CHECKOUT_STAMP_DIR)/$(EVOBENCH_VERSION)
 EVOBENCH_EVALUATOR_DIR=$(EVOBENCH_DIR)/evobench-evaluator
 EVOBENCH_EVALUATOR=$(EVOBENCH_EVALUATOR_DIR)/target/release/evobench-evaluator
@@ -76,7 +76,7 @@ $(EVOBENCH_CLONE):
 
 $(EVOBENCH_CHECKOUT): $(EVOBENCH_CLONE)
 	rm -rf $(EVOBENCH_CHECKOUT_STAMP_DIR) # remove previous version stamp
-	( cd $(EVOBENCH_DIR) && git remote update && git checkout -b local_$(EVOBENCH_VERSION) $(EVOBENCH_VERSION) )
+	( cd $(EVOBENCH_DIR) && git remote update && git checkout -b local_hidden_$(EVOBENCH_VERSION) $(EVOBENCH_VERSION) )
 	mkdir -p $(EVOBENCH_CHECKOUT_STAMP_DIR)
 	touch $(EVOBENCH_CHECKOUT)
 
