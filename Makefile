@@ -31,7 +31,6 @@ API_QUERY_OPTS=--randomize
 else
 $(error "RANDOMIZED must be either 0 or 1, got '$(RANDOMIZED)'")
 endif
-export OUTPUT_DIR
 
 
 RESULT_BASENAME := bench=$(BENCH)_sorted=$(SORTED)_randomized=$(RANDOMIZED)_$(shell date --rfc-3339=seconds)
