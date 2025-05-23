@@ -40,27 +40,45 @@ all: bench
 
 # ---- Get dependencies --------------------------------------------------------
 
+API_QUERY_VERSION=f1d7ff35b03ac740a58186578bf38e8cc39acc67
+
 API_QUERY_DIR=api-query
-API_QUERY_CHECKOUT=$(API_QUERY_DIR)/Cargo.toml
+API_QUERY_CLONE=$(API_QUERY_DIR)/Cargo.toml
+API_QUERY_CHECKOUT_STAMP_DIR=$(API_QUERY_DIR).checkout
+API_QUERY_CHECKOUT=$(API_QUERY_CHECKOUT_STAMP_DIR)/$(API_QUERY_VERSION)
 API_QUERY=$(API_QUERY_DIR)/target/release/api-query
 
-$(API_QUERY_CHECKOUT):
+$(API_QUERY_CLONE):
 	git clone https://github.com/GenSpectrum/api-query $(API_QUERY_DIR)
-	cd $(API_QUERY_DIR) && git checkout -b local f1d7ff35b03ac740a58186578bf38e8cc39acc67
+
+$(API_QUERY_CHECKOUT): $(API_QUERY_CLONE)
+	rm -rf $(API_QUERY_CHECKOUT_STAMP_DIR) # remove previous version stamp
+	( cd $(API_QUERY_DIR) && git remote update && git checkout -b local_$(API_QUERY_VERSION) $(API_QUERY_VERSION) )
+	mkdir -p $(API_QUERY_CHECKOUT_STAMP_DIR)
+	touch $(API_QUERY_CHECKOUT)
 
 $(API_QUERY): $(API_QUERY_CHECKOUT)
 	cd $(API_QUERY_DIR) && cargo build --release
 
 
+EVOBENCH_VERSION=1629ed73c0c65ba19a8de97aa71236e0dbc87887
+
 EVOBENCH_DIR=evobench
-EVOBENCH_CHECKOUT=$(EVOBENCH_DIR)/evobench-evaluator/Cargo.toml
+EVOBENCH_CLONE=$(EVOBENCH_DIR)/evobench-evaluator/Cargo.toml
+EVOBENCH_CHECKOUT_STAMP_DIR=$(EVOBENCH_DIR).checkout
+EVOBENCH_CHECKOUT=$(EVOBENCH_CHECKOUT_STAMP_DIR)/$(EVOBENCH_VERSION)
 EVOBENCH_EVALUATOR_DIR=$(EVOBENCH_DIR)/evobench-evaluator
 EVOBENCH_EVALUATOR=$(EVOBENCH_EVALUATOR_DIR)/target/release/evobench-evaluator
 export EVOBENCH_EVALUATOR
 
-$(EVOBENCH_CHECKOUT):
+$(EVOBENCH_CLONE):
 	git clone https://github.com/GenSpectrum/evobench/ $(EVOBENCH_DIR)
-	cd $(EVOBENCH_DIR) && git checkout -b local 1629ed73c0c65ba19a8de97aa71236e0dbc87887
+
+$(EVOBENCH_CHECKOUT): $(EVOBENCH_CLONE)
+	rm -rf $(EVOBENCH_CHECKOUT_STAMP_DIR) # remove previous version stamp
+	( cd $(EVOBENCH_DIR) && git remote update && git checkout -b local_$(EVOBENCH_VERSION) $(EVOBENCH_VERSION) )
+	mkdir -p $(EVOBENCH_CHECKOUT_STAMP_DIR)
+	touch $(EVOBENCH_CHECKOUT)
 
 $(EVOBENCH_EVALUATOR): $(EVOBENCH_CHECKOUT)
 	cd $(EVOBENCH_EVALUATOR_DIR) && cargo build --release

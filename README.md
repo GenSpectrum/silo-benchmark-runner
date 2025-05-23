@@ -29,8 +29,6 @@
 
 ## TODO
 
-  * XXX really check the right commit in dependencies
-
   * add LAPIS-SILO commit id, and host name, to the output key (and
     use subdirs, for length reasons?)
 
