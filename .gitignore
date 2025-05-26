@@ -10,6 +10,7 @@ logs/
 output/
 sorted_output/
 
+silo_queries.ndjson
 input_file.ndjson.zst
 sorted_input_file.ndjson.zst
 open_lineage_definitions.yaml
