@@ -4,12 +4,16 @@ IFS=
 
 if [ -e .silo.pid ]; then
     pid=$(cat .silo.pid)
-    kill -INT "$pid"
+    if kill -INT "$pid"; then
+
+        echo -n "Waiting for silo (PID $pid) to shut down..."
+        while kill 0 "$pid"; do 
+            sleep 0.5
+        done
+    fi
+
+    rm -f .silo.pid
     
-    echo -n "Waiting for silo (PID $pid) to shut down..."
-    while [ -e .silo.pid ]; do 
-        sleep 0.5
-    done
     echo done.
     
 else
