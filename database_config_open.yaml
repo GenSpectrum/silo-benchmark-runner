@@ -145,6 +145,3 @@ schema:
   features:
     - name: sarsCoV2VariantQuery
   primaryKey: strain
-  dateToSortBy: date
-# See https://github.com/GenSpectrum/servers/pull/174 - disable partitioning for now
-#  partitionBy: pangoLineage
