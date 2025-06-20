@@ -4,22 +4,27 @@
     one than the one from Debian stable): get it from
     [rustup.rs](https://rustup.rs/)
 
- 1. Clone this repository inside LAPIS-SILO:
+ 1. Get a LAPIS-SILO clone that has the evobench-probes library and
+    some probes added. E.g. the `wip_evobench` branch (commit
+    5ac803277ac939086467d9a4d4ee3821f3145fa0).
+
+ 1. Clone this repository inside it:
 
         cd LAPIS-SILO
         git clone https://github.com/GenSpectrum/silo-benchmark-runner/
         cd silo-benchmark-runner/
 
- 2. Make sure you have the input files `silo_queries.ndjson`,
-    `input_file.ndjson.zst`, `open_lineage_definitions.yaml` or
+ 1. Make sure that you have the input files `silo_queries.ndjson`,
+    `input_file.ndjson.zst`, `open_lineage_definitions.yaml`, or
     symlinks to them.
 
-    XX currently: get the files and reconstruct those symlinks here:
+    XX currently: get these files from gs-staging-1, or when running
+    there, reconstruct those symlinks here:
 
         ssh gs-staging-1
         ls -lrt ~christian/LAPIS-SILO/subdir-realdata | grep ' -> '
 
- 3. Then, still from `silo-benchmark-runner/`, run:
+ 1. Then, still from `silo-benchmark-runner/`, run:
 
         BENCH=1 SORTED=0 RANDOMIZED=1 make bench
 
