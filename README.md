@@ -27,9 +27,7 @@
 
         BENCH=1 SORTED=1 RANDOMIZED=1 make bench
 
-    Then keep the (`*.xlsx` and) `*-bench.log.zstd` files (you can
-    always reconstruct the xlsx files by running the
-    evobench-evaluator on the latter files again).
+    Then find the output files in `benchmark-output-files/`.
 
 ## TODO
 

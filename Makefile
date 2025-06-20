@@ -32,11 +32,13 @@ else
 $(error "RANDOMIZED must be either 0 or 1, got '$(RANDOMIZED)'")
 endif
 
-
-RESULT_BASENAME := $(shell bin/describe-commit)_bench=$(BENCH)_sorted=$(SORTED)_randomized=$(RANDOMIZED)_$(shell date --rfc-3339=seconds)
+RESULT_BASENAME := benchmark-output-files/$(shell bin/describe-commit)_bench=$(BENCH)_sorted=$(SORTED)_randomized=$(RANDOMIZED)_$(shell date --rfc-3339=seconds)
 export RESULT_BASENAME
 
 all: bench
+
+benchmark-output-files:
+	mkdir -p benchmark-output-files
 
 # ---- Get dependencies --------------------------------------------------------
 
@@ -122,7 +124,7 @@ PREPROCESSING_STAMP = $(OUTPUT_DIR)/.done
 
 BENCH_DIR := $(shell bin/bench-tmp-dir)
 
-$(BENCH_DIR)/.create:
+$(BENCH_DIR)/.create: | benchmark-output-files
 	mkdir -p $(BENCH_DIR)
 	touch $(BENCH_DIR)/.create
 
