@@ -1,0 +1,11 @@
+#!/bin/bash
+set -meuo pipefail
+IFS=
+
+os=$(uname -o)
+
+if [ "$os" = GNU/Linux ]; then
+    echo "/dev/shm/$USER/"
+else
+    echo ./tmp/
+fi
