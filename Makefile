@@ -144,7 +144,7 @@ $(PREPROCESSING_STAMP): $(SILO) $(INPUT_FILE)
 	bin/stop-silo
 	touch .silo.stopped
 
-bench: silo_queries.ndjson $(API_QUERY) $(EVOBENCH_EVALUATOR) .silo.stopped
+bench: silo_queries.ndjson $(API_QUERY) $(EVOBENCH_EVALUATOR) .silo.stopped | $(BENCH_DIR)/.create
 	rm -f $(EVOBENCH_LOG)
 	make .silo.pid
 	$(API_QUERY) iter $(API_QUERY_OPTS) silo_queries.ndjson --drop --concurrency 50
