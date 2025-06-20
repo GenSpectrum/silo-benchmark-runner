@@ -63,7 +63,7 @@ $(API_QUERY): $(API_QUERY_CHECKOUT)
 	cd $(API_QUERY_DIR) && cargo build --release
 
 
-EVOBENCH_VERSION=d4bdb2fefba87b030493e70a2771923c78e0855a
+EVOBENCH_VERSION=c464f7fb81e060bbe695ffdd8820fce6313caf1a
 
 EVOBENCH_DIR=evobench
 EVOBENCH_CLONE=$(EVOBENCH_DIR)/evobench-evaluator/Cargo.toml
