@@ -1,5 +1,9 @@
 # Makefile / scripts to do SILO benchmarking runs
 
+ 1. Make sure you have a Rust compiler installed (and a more recent
+    one than the one from Debian stable): get it from
+    [rustup.rs](https://rustup.rs/)
+
  1. Clone this repository inside LAPIS-SILO:
 
         cd LAPIS-SILO
