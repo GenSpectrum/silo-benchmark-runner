@@ -33,7 +33,7 @@ $(error "RANDOMIZED must be either 0 or 1, got '$(RANDOMIZED)'")
 endif
 
 
-RESULT_BASENAME := bench=$(BENCH)_sorted=$(SORTED)_randomized=$(RANDOMIZED)_$(shell date --rfc-3339=seconds)
+RESULT_BASENAME := $(shell bin/describe-commit)_bench=$(BENCH)_sorted=$(SORTED)_randomized=$(RANDOMIZED)_$(shell date --rfc-3339=seconds)
 export RESULT_BASENAME
 
 all: bench

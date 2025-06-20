@@ -36,8 +36,8 @@
 PS.: These will now be done in the `evobench-run` tool in
 [evobench](https://github.com/GenSpectrum/evobench/)
 
-  * add LAPIS-SILO commit id, and host name, to the output key (and
-    use subdirs, for length reasons?)
+  * add host name to the output key (and use subdirs, for length
+    reasons?)
 
   * have 2 folder hierarchies for small and large data set, add wrapper
     script that passes the right variables to make
