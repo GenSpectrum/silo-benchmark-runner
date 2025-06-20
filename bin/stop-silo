@@ -7,7 +7,7 @@ if [ -e .silo.pid ]; then
     if kill -INT "$pid"; then
 
         echo -n "Waiting for silo (PID $pid) to shut down..."
-        while kill 0 "$pid"; do 
+        while kill -0 "$pid"; do 
             sleep 0.5
         done
     fi
