@@ -1,8 +1,13 @@
 # Makefile / scripts to do SILO benchmarking runs
 
- 1. Make sure you have a Rust compiler installed (and a more recent
-    one than the one from Debian stable): get it from
-    [rustup.rs](https://rustup.rs/)
+ 1. Make sure you have the Rust compiler, version 1.86.0 or later,
+    installed: get it via [rustup.rs](https://rustup.rs/) (if you
+    already installed the compiler earlier, but you get a message
+    about async closures not being stable, then the compiler is too
+    old, you can then update it via `rustup update` (or, if you want
+    the oldest supported version, `rustup toolchain install 1.86.0`
+    then `rustup toolchain list` then `rustup default <the name in the
+    list>`)
 
  1. Get a LAPIS-SILO clone that has the evobench-probes library and
     some probes added. E.g. the `wip_evobench` branch (commit
