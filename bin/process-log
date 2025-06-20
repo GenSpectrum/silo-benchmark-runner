@@ -5,5 +5,10 @@ IFS=
 set -x
 
 "$EVOBENCH_EVALUATOR" single "$EVOBENCH_LOG" --show-thread-number --excel "$RESULT_BASENAME".xlsx
+# It's a bit inefficient to read the $EVOBENCH_LOG twice, but
+# currently can't change the options (--show-thread-number) without a
+# separate run, also the cost is just a second or so.
+"$EVOBENCH_EVALUATOR" single "$EVOBENCH_LOG" --flame "$RESULT_BASENAME"
+
 zstd < "$EVOBENCH_LOG" > "$RESULT_BASENAME"-bench.log.zstd
 rm -f "$EVOBENCH_LOG"
