@@ -120,7 +120,7 @@ API_OPTIONS=--api-threads-for-http-connections 16
 export API_OPTIONS
 PREPROCESSING_STAMP = $(OUTPUT_DIR)/.done
 
-BENCH_DIR=/dev/shm/$(USER)/
+BENCH_DIR=./tmp/
 
 $(BENCH_DIR)/.create:
 	mkdir -p $(BENCH_DIR)
