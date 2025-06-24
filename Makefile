@@ -57,29 +57,6 @@ $(API_QUERY): $(API_QUERY_CHECKOUT)
 	cd $(API_QUERY_DIR) && cargo build --release
 
 
-EVOBENCH_VERSION=c464f7fb81e060bbe695ffdd8820fce6313caf1a
-
-EVOBENCH_DIR=evobench
-EVOBENCH_CLONE=$(EVOBENCH_DIR)/evobench-evaluator/Cargo.toml
-EVOBENCH_CHECKOUT_STAMP_DIR=$(EVOBENCH_DIR)/.git/.checkout
-EVOBENCH_CHECKOUT=$(EVOBENCH_CHECKOUT_STAMP_DIR)/$(EVOBENCH_VERSION)
-EVOBENCH_EVALUATOR_DIR=$(EVOBENCH_DIR)/evobench-evaluator
-EVOBENCH_EVALUATOR=$(EVOBENCH_EVALUATOR_DIR)/target/release/evobench-evaluator
-export EVOBENCH_EVALUATOR
-
-$(EVOBENCH_CLONE):
-	git clone https://github.com/GenSpectrum/evobench/ $(EVOBENCH_DIR)
-
-$(EVOBENCH_CHECKOUT): $(EVOBENCH_CLONE)
-	rm -rf $(EVOBENCH_CHECKOUT_STAMP_DIR) # remove previous version stamp
-	( cd $(EVOBENCH_DIR) && git remote update && git checkout -b local_hidden_$(EVOBENCH_VERSION) $(EVOBENCH_VERSION) )
-	mkdir -p $(EVOBENCH_CHECKOUT_STAMP_DIR)
-	touch $(EVOBENCH_CHECKOUT)
-
-$(EVOBENCH_EVALUATOR): $(EVOBENCH_CHECKOUT)
-	cd $(EVOBENCH_EVALUATOR_DIR) && cargo build --release
-
-
 WISEPULSE_DIR=WisePulse
 WISEPULSE_CHECKOUT=$(WISEPULSE_DIR)/Cargo.toml
 WISEPULSE_BIN=$(WISEPULSE_DIR)/target/release
@@ -95,7 +72,7 @@ $(WISEPULSE): $(WISEPULSE_CHECKOUT)
 
 
 # just for manual call comfort
-dependencies: $(API_QUERY) $(EVOBENCH_EVALUATOR) $(WISEPULSE)
+dependencies: $(API_QUERY) $(WISEPULSE)
 
 
 # ---- Sorting input -----------------------------------------------------------
@@ -138,7 +115,7 @@ $(PREPROCESSING_STAMP): $(SILO) $(INPUT_FILE)
 	bin/stop-silo
 	touch .silo.stopped
 
-bench: silo_queries.ndjson $(API_QUERY) $(EVOBENCH_EVALUATOR) .silo.stopped | $(BENCH_DIR)/.create
+bench: silo_queries.ndjson $(API_QUERY) .silo.stopped | $(BENCH_DIR)/.create
 	rm -f $(EVOBENCH_LOG)
 	make .silo.pid
 	$(API_QUERY) iter $(API_QUERY_OPTS) silo_queries.ndjson --drop --concurrency 50
