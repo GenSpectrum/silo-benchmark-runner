@@ -9,7 +9,6 @@ EVOBENCH_LOG=$(BENCH_DIR)/bench.log
 else
 $(error "BENCH must be either 0 or 1, got '$(BENCH)'")
 endif
-export EVOBENCH_LOG
 
 # Should sorted input be used?
 ifeq ($(SORTED),0)
@@ -93,12 +92,6 @@ API_OPTIONS=--api-threads-for-http-connections 16
 export API_OPTIONS
 PREPROCESSING_STAMP = $(OUTPUT_DIR)/.done
 
-BENCH_DIR := $(shell bin/bench-tmp-dir)
-
-$(BENCH_DIR)/.create: | benchmark-output-files
-	mkdir -p $(BENCH_DIR)
-	touch $(BENCH_DIR)/.create
-
 $(SILO):
 	cd .. && python3 build_with_conan.py --release
 
@@ -107,7 +100,7 @@ $(PREPROCESSING_STAMP): $(SILO) $(INPUT_FILE)
 			--ndjson-input-filename $(INPUT_FILE) --output-directory $(OUTPUT_DIR)
 	touch $(PREPROCESSING_STAMP)
 
-.silo.pid: $(PREPROCESSING_STAMP) $(BENCH_DIR)/.create
+.silo.pid: $(PREPROCESSING_STAMP)
 	rm -f .silo.stopped
 	bin/start-silo
 
@@ -115,7 +108,7 @@ $(PREPROCESSING_STAMP): $(SILO) $(INPUT_FILE)
 	bin/stop-silo
 	touch .silo.stopped
 
-bench: silo_queries.ndjson $(API_QUERY) .silo.stopped | $(BENCH_DIR)/.create
+bench: silo_queries.ndjson $(API_QUERY) .silo.stopped
 	rm -f $(EVOBENCH_LOG)
 	make .silo.pid
 	$(API_QUERY) iter $(API_QUERY_OPTS) silo_queries.ndjson --drop --concurrency 50
