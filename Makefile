@@ -12,10 +12,11 @@ endif
 
 # Should sorted input be used?
 ifeq ($(SORTED),0)
-INPUT_FILE = input_file.ndjson.zst
+INPUT_FILE = $(BENCHMARK_DATASET_DIR)/input_file.ndjson.zst
 OUTPUT_DIR = output
 else ifeq ($(SORTED),1)
-INPUT_FILE = sorted_input_file.ndjson.zst
+# OK to write back into the $(BENCHMARK_DATASET_DIR)?
+INPUT_FILE = $(BENCHMARK_DATASET_DIR)/sorted_input_file.ndjson.zst
 OUTPUT_DIR = sorted_output
 else
 $(error "SORTED must be either 0 or 1, got '$(SORTED)'")
@@ -30,6 +31,19 @@ API_QUERY_OPTS=--randomize
 else
 $(error "RANDOMIZED must be either 0 or 1, got '$(RANDOMIZED)'")
 endif
+
+# The name of a subfolder of `~/silo-benchmark-datasets/` where the
+# dataset is stored
+ifeq ($(BENCHMARK_DATASET_NAME),)
+$(error "BENCHMARK_DATASET_NAME must be a subfolder name, got '$(BENCHMARK_DATASET_NAME)'")
+endif
+
+# ---- General -----------------------------------------------------------------
+
+BENCHMARK_DATASET_DIR=~/silo-benchmark-datasets/$(BENCHMARK_DATASET_NAME)
+
+LINEAGE_DEFINITIONS_FILENAME=$(BENCHMARK_DATASET_DIR)/lineage_definitions.yaml
+export LINEAGE_DEFINITIONS_FILENAME
 
 all: bench
 
@@ -108,7 +122,7 @@ $(PREPROCESSING_STAMP): $(SILO) $(INPUT_FILE)
 	bin/stop-silo
 	touch .silo.stopped
 
-bench: silo_queries.ndjson $(API_QUERY) .silo.stopped
+bench: $(BENCHMARK_DATASET_DIR)/silo_queries.ndjson $(API_QUERY) .silo.stopped
 	rm -f $(EVOBENCH_LOG)
 	make .silo.pid
 	$(API_QUERY) iter $(API_QUERY_OPTS) silo_queries.ndjson --drop --concurrency 50
